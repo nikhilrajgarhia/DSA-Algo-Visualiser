@@ -21,14 +21,54 @@ Shared UX: play/pause, step forward/back, scrubber, speed (Slow / Normal / Fast)
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (LTS recommended)
-- [pnpm](https://pnpm.io/) (the repo uses `pnpm-lock.yaml`)
+- [Git](https://git-scm.com/downloads) (to clone the repository)
+- [Node.js](https://nodejs.org/) **LTS** (v18 or newer recommended)
+- [pnpm](https://pnpm.io/) — this repo uses `pnpm-lock.yaml`; use pnpm for installs (not npm or yarn)
 
-## Setup
+## Installation
 
-```bash
-pnpm install
-```
+### macOS
+
+1. **Install Node.js** (if you do not have it):
+   - Download the LTS installer from [nodejs.org](https://nodejs.org/), or
+   - With [Homebrew](https://brew.sh/): `brew install node`
+2. **Install pnpm** (pick one):
+   - Enable Corepack (ships with Node 16.13+): `sudo corepack enable` then `corepack prepare pnpm@latest --activate`
+   - Or: `npm install -g pnpm`
+3. **Clone and install dependencies**:
+
+   ```bash
+   git clone https://github.com/nikhilrajgarhia/DSA-Algo-Visualiser.git
+   cd DSA-Algo-Visualiser
+   pnpm install
+   ```
+
+   (SSH: `git clone git@github.com:nikhilrajgarhia/DSA-Algo-Visualiser.git`)
+
+4. **Run the app** (see [Scripts](#scripts)): `pnpm dev` — then open the URL shown in the terminal (usually `http://localhost:5173`).
+
+### Windows
+
+1. **Install Node.js** (if you do not have it):
+   - Download the **LTS** Windows installer (`.msi`) from [nodejs.org](https://nodejs.org/) and run it, or
+   - With [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/): `winget install OpenJS.NodeJS.LTS`
+2. **Open a terminal** where Git and Node are available — **PowerShell**, **Command Prompt**, or **Git Bash**.
+3. **Install pnpm** (pick one):
+   - In PowerShell (as Administrator, if needed): `corepack enable` then `corepack prepare pnpm@latest --activate`
+   - Or: `npm install -g pnpm`
+4. **Clone and install dependencies**:
+
+   ```bash
+   git clone https://github.com/nikhilrajgarhia/DSA-Algo-Visualiser.git
+   cd DSA-Algo-Visualiser
+   pnpm install
+   ```
+
+   (SSH: `git clone git@github.com:nikhilrajgarhia/DSA-Algo-Visualiser.git`)
+
+5. **Run the app** (see [Scripts](#scripts)): `pnpm dev` — then open the URL shown in the terminal (usually `http://localhost:5173`).
+
+If Windows shows an execution policy error when running scripts, you may need to [adjust PowerShell execution policy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies) for your user scope, or run commands from **Command Prompt** / **Git Bash** instead.
 
 ## Scripts
 
