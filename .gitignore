@@ -42,3 +42,4 @@ coverage/
 # Optional tooling
 .turbo/
 .vercel/
+node_modules
