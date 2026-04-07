@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, SkipBack, SkipForward, RotateCcw, ChevronRight } from "lucide-react";
+import { CodeVariantsPanel, type CodeSnippet, type CodeVariant } from "@/components/code-variants-panel";
+import { ExplanationComments } from "@/components/explanation-comments";
 
 interface Item {
   id: number;
@@ -124,6 +126,248 @@ const ITEM_COLORS = [
   { bg: "bg-chart-3/15", border: "border-chart-3/50", text: "text-chart-3", activeBg: "bg-chart-3/25" },
   { bg: "bg-chart-4/15", border: "border-chart-4/50", text: "text-chart-4", activeBg: "bg-chart-4/25" },
   { bg: "bg-chart-5/15", border: "border-chart-5/50", text: "text-chart-5", activeBg: "bg-chart-5/25" },
+];
+
+function snippets(languages: {
+  java: string;
+  csharp: string;
+  python: string;
+  javascript: string;
+  cpp: string;
+}): CodeSnippet[] {
+  return [
+    { id: "java", language: "Java", code: languages.java },
+    { id: "csharp", language: "C#", code: languages.csharp },
+    { id: "python", language: "Python", code: languages.python },
+    { id: "javascript", language: "JavaScript", code: languages.javascript },
+    { id: "cpp", language: "C++", code: languages.cpp },
+  ];
+}
+
+const KNAPSACK_CODE_VARIANTS: CodeVariant[] = [
+  {
+    id: "recursion",
+    label: "Recursion",
+    snippets: snippets({
+      java: `class Solution {
+  int knapsack(int[] wt, int[] val, int capacity, int n) {
+    if (n == 0 || capacity == 0) return 0;
+    if (wt[n - 1] > capacity) return knapsack(wt, val, capacity, n - 1);
+    return Math.max(
+      val[n - 1] + knapsack(wt, val, capacity - wt[n - 1], n - 1),
+      knapsack(wt, val, capacity, n - 1)
+    );
+  }
+}`,
+      csharp: `public class Solution {
+  public int Knapsack(int[] wt, int[] val, int capacity, int n) {
+    if (n == 0 || capacity == 0) return 0;
+    if (wt[n - 1] > capacity) return Knapsack(wt, val, capacity, n - 1);
+    return Math.Max(
+      val[n - 1] + Knapsack(wt, val, capacity - wt[n - 1], n - 1),
+      Knapsack(wt, val, capacity, n - 1)
+    );
+  }
+}`,
+      python: `def knapsack_recursive(wt, val, capacity, n):
+    if n == 0 or capacity == 0:
+        return 0
+    if wt[n - 1] > capacity:
+        return knapsack_recursive(wt, val, capacity, n - 1)
+    return max(
+        val[n - 1] + knapsack_recursive(wt, val, capacity - wt[n - 1], n - 1),
+        knapsack_recursive(wt, val, capacity, n - 1),
+    )`,
+      javascript: `function knapsackRecursive(weights, values, capacity, n) {
+  if (n === 0 || capacity === 0) return 0;
+  if (weights[n - 1] > capacity) {
+    return knapsackRecursive(weights, values, capacity, n - 1);
+  }
+  return Math.max(
+    values[n - 1] + knapsackRecursive(weights, values, capacity - weights[n - 1], n - 1),
+    knapsackRecursive(weights, values, capacity, n - 1)
+  );
+}`,
+      cpp: `class Solution {
+public:
+  int knapsack(vector<int>& wt, vector<int>& val, int capacity, int n) {
+    if (n == 0 || capacity == 0) return 0;
+    if (wt[n - 1] > capacity) return knapsack(wt, val, capacity, n - 1);
+    return max(
+      val[n - 1] + knapsack(wt, val, capacity - wt[n - 1], n - 1),
+      knapsack(wt, val, capacity, n - 1)
+    );
+  }
+};`,
+    }),
+    note: "This version directly models the include-or-skip choice, but it repeats the same states many times.",
+  },
+  {
+    id: "topdown",
+    label: "Top-down",
+    snippets: snippets({
+      java: `class Solution {
+  int[][] memo;
+
+  int solve(int[] wt, int[] val, int n, int w) {
+    if (n == 0 || w == 0) return 0;
+    if (memo[n][w] != -1) return memo[n][w];
+    if (wt[n - 1] > w) memo[n][w] = solve(wt, val, n - 1, w);
+    else {
+      memo[n][w] = Math.max(
+        val[n - 1] + solve(wt, val, n - 1, w - wt[n - 1]),
+        solve(wt, val, n - 1, w)
+      );
+    }
+    return memo[n][w];
+  }
+}`,
+      csharp: `public class Solution {
+  private int[,] memo;
+
+  public int Solve(int[] wt, int[] val, int n, int w) {
+    if (n == 0 || w == 0) return 0;
+    if (memo[n, w] != -1) return memo[n, w];
+    if (wt[n - 1] > w) memo[n, w] = Solve(wt, val, n - 1, w);
+    else {
+      memo[n, w] = Math.Max(
+        val[n - 1] + Solve(wt, val, n - 1, w - wt[n - 1]),
+        Solve(wt, val, n - 1, w)
+      );
+    }
+    return memo[n, w];
+  }
+}`,
+      python: `def knapsack_memo(wt, val, capacity):
+    memo = [[-1] * (capacity + 1) for _ in range(len(wt) + 1)]
+
+    def solve(n, w):
+        if n == 0 or w == 0:
+            return 0
+        if memo[n][w] != -1:
+            return memo[n][w]
+        if wt[n - 1] > w:
+            memo[n][w] = solve(n - 1, w)
+        else:
+            memo[n][w] = max(
+                val[n - 1] + solve(n - 1, w - wt[n - 1]),
+                solve(n - 1, w),
+            )
+        return memo[n][w]
+
+    return solve(len(wt), capacity)`,
+      javascript: `function knapsackMemo(weights, values, capacity) {
+  const memo = Array.from({ length: weights.length + 1 }, () =>
+    Array(capacity + 1).fill(-1)
+  );
+
+  function solve(n, w) {
+    if (n === 0 || w === 0) return 0;
+    if (memo[n][w] !== -1) return memo[n][w];
+    if (weights[n - 1] > w) memo[n][w] = solve(n - 1, w);
+    else {
+      memo[n][w] = Math.max(
+        values[n - 1] + solve(n - 1, w - weights[n - 1]),
+        solve(n - 1, w)
+      );
+    }
+    return memo[n][w];
+  }
+
+  return solve(weights.length, capacity);
+}`,
+      cpp: `class Solution {
+public:
+  vector<vector<int>> memo;
+
+  int solve(vector<int>& wt, vector<int>& val, int n, int w) {
+    if (n == 0 || w == 0) return 0;
+    if (memo[n][w] != -1) return memo[n][w];
+    if (wt[n - 1] > w) memo[n][w] = solve(wt, val, n - 1, w);
+    else {
+      memo[n][w] = max(
+        val[n - 1] + solve(wt, val, n - 1, w - wt[n - 1]),
+        solve(wt, val, n - 1, w)
+      );
+    }
+    return memo[n][w];
+  }
+};`,
+    }),
+    note: "Memoization preserves the recursive decision tree while caching each (item, capacity) state.",
+  },
+  {
+    id: "bottomup",
+    label: "Bottom-up",
+    snippets: snippets({
+      java: `class Solution {
+  int knapsackBottomUp(int[] wt, int[] val, int capacity) {
+    int n = wt.length;
+    int[][] dp = new int[n + 1][capacity + 1];
+    for (int i = 1; i <= n; i++) {
+      for (int w = 0; w <= capacity; w++) {
+        if (wt[i - 1] > w) dp[i][w] = dp[i - 1][w];
+        else dp[i][w] = Math.max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w]);
+      }
+    }
+    return dp[n][capacity];
+  }
+}`,
+      csharp: `public class Solution {
+  public int KnapsackBottomUp(int[] wt, int[] val, int capacity) {
+    int n = wt.Length;
+    int[,] dp = new int[n + 1, capacity + 1];
+    for (int i = 1; i <= n; i++) {
+      for (int w = 0; w <= capacity; w++) {
+        if (wt[i - 1] > w) dp[i, w] = dp[i - 1, w];
+        else dp[i, w] = Math.Max(val[i - 1] + dp[i - 1, w - wt[i - 1]], dp[i - 1, w]);
+      }
+    }
+    return dp[n, capacity];
+  }
+}`,
+      python: `def knapsack_bottom_up(wt, val, capacity):
+    n = len(wt)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            if wt[i - 1] > w:
+                dp[i][w] = dp[i - 1][w]
+            else:
+                dp[i][w] = max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w])
+    return dp[n][capacity]`,
+      javascript: `function knapsackBottomUp(weights, values, capacity) {
+  const n = weights.length;
+  const dp = Array.from({ length: n + 1 }, () =>
+    Array(capacity + 1).fill(0)
+  );
+
+  for (let i = 1; i <= n; i++) {
+    for (let w = 0; w <= capacity; w++) {
+      if (weights[i - 1] > w) dp[i][w] = dp[i - 1][w];
+      else dp[i][w] = Math.max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w]);
+    }
+  }
+
+  return dp[n][capacity];
+}`,
+      cpp: `class Solution {
+public:
+  int knapsackBottomUp(vector<int>& wt, vector<int>& val, int capacity) {
+    int n = wt.size();
+    vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, 0));
+    for (int i = 1; i <= n; i++) {
+      for (int w = 0; w <= capacity; w++) {
+        if (wt[i - 1] > w) dp[i][w] = dp[i - 1][w];
+        else dp[i][w] = max(val[i - 1] + dp[i - 1][w - wt[i - 1]], dp[i - 1][w]);
+      }
+    }
+    return dp[n][capacity];
+  }
+};`,
+    }),
+    note: "This tabulation form fills the same table shape that the visualizer animates on screen.",
+  },
 ];
 
 export default function KnapsackVisualizer() {
@@ -564,10 +808,12 @@ export function KnapsackExplanationPanel() {
           )}
         </motion.div>
       ))}
+      <CodeVariantsPanel title="0/1 Knapsack Code" variants={KNAPSACK_CODE_VARIANTS} />
       <div className="bg-gradient-to-br from-primary/8 to-chart-2/8 border border-primary/20 rounded-xl p-5 text-center">
         <p className="text-sm text-muted-foreground">Ready to see it in action?</p>
         <p className="text-sm font-medium text-foreground mt-1">Switch to the Visualizer tab and press Play!</p>
       </div>
+      <ExplanationComments storageKey="knapsack-how-it-works" />
     </div>
   );
 }

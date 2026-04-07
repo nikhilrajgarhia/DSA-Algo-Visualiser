@@ -138,11 +138,11 @@ export default function LCSVisualizer() {
   const lcsString = showTrace && data ? getLCSString(s1Clean, s2Clean, data.dp) : null;
 
   return (
-    <div className="space-y-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-card border border-card-border rounded-xl p-4 space-y-3">
-          <label className="text-sm font-medium text-foreground flex items-center gap-2">
-            <span className="w-5 h-5 rounded bg-chart-1 text-white text-xs flex items-center justify-center font-bold">S</span>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="bg-card border border-card-border rounded-[28px] p-6 space-y-4 shadow-sm">
+          <label className="text-[15px] font-semibold text-foreground flex items-center gap-3">
+            <span className="w-8 h-8 rounded-xl bg-chart-1 text-white text-sm flex items-center justify-center font-bold">S</span>
             String 1
           </label>
           <input
@@ -150,19 +150,19 @@ export default function LCSVisualizer() {
             value={s1}
             onChange={(e) => setS1(e.target.value)}
             placeholder="e.g. ABCBDAB"
-            className="w-full px-3 py-2 rounded-lg border border-input bg-background text-foreground font-mono text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-ring transition"
+            className="h-[68px] w-full rounded-2xl border border-input bg-muted/35 px-5 font-mono text-2xl tracking-widest text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             maxLength={12}
           />
-          <div className="flex gap-1.5 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {s1Clean.split("").map((ch, idx) => (
-              <span key={idx} className="w-7 h-7 rounded-md bg-chart-1/15 text-chart-1 font-bold text-sm flex items-center justify-center border border-chart-1/30">{ch}</span>
+              <span key={idx} className="w-10 h-10 rounded-xl bg-chart-1/12 text-chart-1 font-bold text-xl flex items-center justify-center border border-chart-1/30">{ch}</span>
             ))}
           </div>
         </div>
 
-        <div className="bg-card border border-card-border rounded-xl p-4 space-y-3">
-          <label className="text-sm font-medium text-foreground flex items-center gap-2">
-            <span className="w-5 h-5 rounded bg-chart-2 text-white text-xs flex items-center justify-center font-bold">T</span>
+        <div className="bg-card border border-card-border rounded-[28px] p-6 space-y-4 shadow-sm">
+          <label className="text-[15px] font-semibold text-foreground flex items-center gap-3">
+            <span className="w-8 h-8 rounded-xl bg-chart-2 text-white text-sm flex items-center justify-center font-bold">T</span>
             String 2
           </label>
           <input
@@ -170,48 +170,48 @@ export default function LCSVisualizer() {
             value={s2}
             onChange={(e) => setS2(e.target.value)}
             placeholder="e.g. BDCAB"
-            className="w-full px-3 py-2 rounded-lg border border-input bg-background text-foreground font-mono text-lg tracking-widest focus:outline-none focus:ring-2 focus:ring-ring transition"
+            className="h-[68px] w-full rounded-2xl border border-input bg-muted/35 px-5 font-mono text-2xl tracking-widest text-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             maxLength={12}
           />
-          <div className="flex gap-1.5 flex-wrap">
+          <div className="flex gap-2 flex-wrap">
             {s2Clean.split("").map((ch, idx) => (
-              <span key={idx} className="w-7 h-7 rounded-md bg-chart-2/15 text-chart-2 font-bold text-sm flex items-center justify-center border border-chart-2/30">{ch}</span>
+              <span key={idx} className="w-10 h-10 rounded-xl bg-chart-2/12 text-chart-2 font-bold text-xl flex items-center justify-center border border-chart-2/30">{ch}</span>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 items-center">
-        <span className="text-xs text-muted-foreground font-medium">Examples:</span>
+      <div className="flex flex-wrap gap-3 items-center">
+        <span className="text-sm text-muted-foreground font-semibold">Examples:</span>
         {EXAMPLES.map((ex) => (
           <button
             key={ex.label}
             onClick={() => { setS1(ex.s1); setS2(ex.s2); }}
             data-testid={`example-${ex.label.replace(/\s/g, "-").toLowerCase()}`}
-            className="px-3 py-1 rounded-full border border-border text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+            className="rounded-full border border-border bg-card px-5 py-2 text-sm text-muted-foreground hover:border-primary/40 hover:text-foreground transition-colors"
           >
             {ex.label}
           </button>
         ))}
       </div>
 
-      <div className="bg-card border border-card-border rounded-xl overflow-hidden">
-        <div className="px-4 py-3 border-b border-card-border flex items-center justify-between">
-          <h2 className="font-semibold text-sm text-foreground">DP Table</h2>
-          <div className="flex items-center gap-3">
+      <div className="bg-card border border-card-border rounded-[28px] overflow-hidden shadow-sm">
+        <div className="px-6 py-5 border-b border-card-border flex items-center justify-between">
+          <h2 className="font-semibold text-[16px] text-foreground">DP Table</h2>
+          <div className="flex items-center gap-5">
             {[
               { color: "bg-emerald-400/30 border-emerald-400/60", label: "Match" },
               { color: "bg-amber-400/30 border-amber-400/60", label: "LCS Path" },
               { color: "bg-primary/30 border-primary/60", label: "Current" },
             ].map(({ color, label }) => (
-              <div key={label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <span className={`w-3 h-3 rounded-sm border inline-block ${color}`} />
+              <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span className={`w-4 h-4 rounded-full border inline-block ${color}`} />
                 {label}
               </div>
             ))}
           </div>
         </div>
-        <div className="p-4 overflow-x-auto">
+        <div className="p-6 overflow-x-auto">
           {filledDp && s1Clean && s2Clean ? (
             <div style={{ fontFamily: "var(--app-font-mono)" }}>
               <table className="border-separate" style={{ borderSpacing: 3 }}>

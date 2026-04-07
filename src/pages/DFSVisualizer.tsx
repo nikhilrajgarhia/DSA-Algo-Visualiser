@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Play, Pause, SkipBack, SkipForward, RotateCcw, Info, Plus, Trash2, ChevronRight,
 } from "lucide-react";
+import { ExplanationComments } from "@/components/explanation-comments";
 
 interface TreeNode {
   id: number;
@@ -654,6 +655,7 @@ export function DFSExplanationPanel() {
         <p className="text-sm text-muted-foreground">Ready to see DFS in action?</p>
         <p className="text-sm font-medium text-foreground mt-1">Switch to the Visualizer tab and press Play!</p>
       </div>
+      <ExplanationComments storageKey="dfs-how-it-works" />
     </div>
   );
 }

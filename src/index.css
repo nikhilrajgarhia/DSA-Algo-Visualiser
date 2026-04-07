@@ -73,40 +73,40 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 220 20% 97%;
-  --foreground: 224 20% 12%;
-  --border: 220 15% 85%;
+  --background: 220 33% 97%;
+  --foreground: 224 20% 16%;
+  --border: 221 24% 86%;
   --card: 0 0% 100%;
-  --card-foreground: 224 20% 12%;
-  --card-border: 220 15% 88%;
-  --sidebar: 220 20% 94%;
-  --sidebar-foreground: 224 20% 12%;
-  --sidebar-border: 220 15% 85%;
-  --sidebar-primary: 258 90% 60%;
+  --card-foreground: 224 20% 16%;
+  --card-border: 222 24% 88%;
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 224 20% 16%;
+  --sidebar-border: 221 24% 86%;
+  --sidebar-primary: 258 86% 60%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 220 20% 90%;
-  --sidebar-accent-foreground: 224 20% 12%;
-  --sidebar-ring: 258 90% 60%;
+  --sidebar-accent: 220 22% 95%;
+  --sidebar-accent-foreground: 224 20% 16%;
+  --sidebar-ring: 258 86% 60%;
   --popover: 0 0% 100%;
-  --popover-foreground: 224 20% 12%;
-  --popover-border: 220 15% 85%;
-  --primary: 258 90% 60%;
+  --popover-foreground: 224 20% 16%;
+  --popover-border: 221 24% 86%;
+  --primary: 258 86% 60%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 220 15% 90%;
-  --secondary-foreground: 224 20% 25%;
-  --muted: 220 15% 93%;
-  --muted-foreground: 220 10% 50%;
-  --accent: 258 90% 95%;
-  --accent-foreground: 258 70% 35%;
+  --secondary: 220 24% 95%;
+  --secondary-foreground: 224 18% 45%;
+  --muted: 220 24% 95%;
+  --muted-foreground: 221 14% 54%;
+  --accent: 258 100% 97%;
+  --accent-foreground: 258 60% 38%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --input: 220 15% 82%;
-  --ring: 258 90% 60%;
-  --chart-1: 258 90% 60%;
-  --chart-2: 152 70% 45%;
-  --chart-3: 35 95% 55%;
-  --chart-4: 200 85% 50%;
-  --chart-5: 340 80% 55%;
+  --input: 221 24% 83%;
+  --ring: 258 86% 60%;
+  --chart-1: 258 86% 61%;
+  --chart-2: 151 63% 48%;
+  --chart-3: 39 96% 62%;
+  --chart-4: 200 82% 54%;
+  --chart-5: 338 78% 60%;
 
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
@@ -198,6 +198,7 @@
   }
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    line-height: 1.45;
   }
 }
 
