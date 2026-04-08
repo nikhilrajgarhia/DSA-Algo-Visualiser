@@ -310,5 +310,8 @@ MIT License
 
 **Nikhil Rajgarhia**
 
+Connect me on Topmate: https://topmate.io/nikhilkr
+LinkedIn: www.linkedin.com/in/nikhil-kumar-india/
+
 GitHub:
 https://github.com/nikhilrajgarhia
