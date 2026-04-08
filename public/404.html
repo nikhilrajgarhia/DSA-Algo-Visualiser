@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function redirectGithubPagesSpa() {
+        var routeRoots = [
+          "",
+          "dfs",
+          "knapsack",
+          "subset-sum",
+          "equal-partition",
+          "count-subset-sum",
+          "min-subset-diff",
+          "target-sum",
+          "subset-diff-count",
+        ];
+
+        var pathSegments = window.location.pathname.split("/").filter(Boolean);
+        var keepSegments = routeRoots.indexOf(pathSegments[0] || "") >= 0 ? 0 : 1;
+        var basePath = "/" + pathSegments.slice(0, keepSegments).join("/");
+        if (basePath !== "/") {
+          basePath += "/";
+        }
+
+        var routePath = "/" + pathSegments.slice(keepSegments).join("/");
+        var query = window.location.search ? window.location.search.slice(1).replace(/&/g, "~and~") : "";
+        var redirectUrl = basePath + "?" + routePath + (query ? "&" + query : "") + window.location.hash;
+
+        window.location.replace(redirectUrl);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
