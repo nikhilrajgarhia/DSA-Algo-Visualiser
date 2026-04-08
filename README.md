@@ -1,5 +1,7 @@
 # 🚀 DSA Algorithm Visualiser
 
+URL: https://nikhilrajgarhia.github.io/DSA-Algo-Visualiser/
+
 An interactive web application to **visualize classic algorithms step-by-step** for learning and understanding.
 
 Currently supported:
@@ -15,18 +17,21 @@ Each visualizer includes **step controls, animations, explanations, and playback
 # ✨ Features
 
 ### 🔤 Longest Common Subsequence (LCS)
+
 - Build DP table step-by-step
 - Highlight matching characters
 - Backtracking visualization
 - Final LCS result
 
 ### 🌳 Depth-First Search (DFS)
+
 - Tree traversal visualization
 - Call stack simulation
 - Visited order display
 - Explore & backtrack animation
 
 ### 🎒 0/1 Knapsack
+
 - DP table filling visualization
 - Include / exclude decision states
 - Optimal item selection
@@ -38,11 +43,11 @@ Each visualizer includes **step controls, animations, explanations, and playback
 
 All visualizers include:
 
-- ▶️ Play / Pause  
-- ⏭ Step Forward  
-- ⏮ Step Backward  
-- 🎚 Speed Control (Slow / Normal / Fast)  
-- 🔎 Scrubber Navigation  
+- ▶️ Play / Pause
+- ⏭ Step Forward
+- ⏮ Step Backward
+- 🎚 Speed Control (Slow / Normal / Fast)
+- 🔎 Scrubber Navigation
 
 ---
 
@@ -189,12 +194,12 @@ BASE_PATH=/
 
 # 📜 Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build production files |
-| `pnpm serve` | Preview production build |
-| `pnpm typecheck` | TypeScript type check |
+| Command          | Description              |
+| ---------------- | ------------------------ |
+| `pnpm dev`       | Start development server |
+| `pnpm build`     | Build production files   |
+| `pnpm serve`     | Preview production build |
+| `pnpm typecheck` | TypeScript type check    |
 
 ---
 
@@ -257,12 +262,6 @@ GitHub will publish the app automatically.
 The workflow also sets `BASE_PATH` automatically, so routing works correctly on GitHub Pages.
 
 Note: the current repository deploy pipeline is build-first. A full TypeScript compiler gate can be added later once `typescript` is pinned directly in the workspace lockfile.
-
-| Route | Description |
-|------|-------------|
-| `/` | LCS Visualizer |
-| `/dfs` | DFS Visualizer |
-| `/knapsack` | Knapsack Visualizer |
 
 ---
 
